@@ -1,0 +1,53 @@
+
+body {
+    background-color: darkgray;
+}
+
+#startBtn {
+    padding: 40px;
+    width: 300px;
+    font-size: 30px;
+    margin-left: 170px;
+    
+}
+h1, h3 {
+    text-align: center;
+}
+.container {
+    margin-top: 60px;
+    width: 800px;
+    height: 520px;
+    padding: 80px;
+    border: solid 1px black;
+    background-color: white;
+}
+.hide {
+    display: none;
+}
+#countDown {
+    position: fixed;
+    top: 105px;
+    right: 300px;
+    border: 2px solid black;
+    padding: 10px 40px;
+}
+p {
+    margin : 10px 0px 20px 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.choices {
+    margin: 10px;
+    display: block;
+    padding: 10px 100px;
+    font-weight: bolder;
+   
+}
+.nextBtn {
+    float: right;
+    
+}
+#nextBtn {
+    padding: 10px 70px;
+}
+
