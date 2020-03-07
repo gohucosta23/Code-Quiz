@@ -84,7 +84,7 @@ h4 {
     width: 290px;
     font-family: 'Anton', sans-serif;
 }
-.startOver {
+#startOver {
     width: 300px;
 }
 @media screen and (min-width: 500px) and (max-width: 768px) {

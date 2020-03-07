@@ -21,22 +21,25 @@
                 <br>
                 <button class="btn rounded bg-success" id="startBtn">Start</button>
             </div>
+            <!-- Container for the question and answers -->
             <div id="quizBox" class="hide">
                 <span id="countDown">2:00</span>
                 <p id="question">Questions</p>
                 <div id="buttonsDisplay"></div>
                 <div id="wrongQuestionMessage"></div>
             </div>
+            <!-- Container where user can save their initials and scores -->
             <div id="finalScore" class="hide">
                 <h4>Score: <span id="yourScore"></span></h4>
                 <input id="initials" type="text"><button id="addScore">Add score</button>
                 <ul id="scoreGrid" ></ul>
-                <button class="startOver btn rounded bg-primary choices">Start Over</button>
+                <button class="btn rounded bg-primary choices">Start Over</button>
             </div>
+            <!-- Page that will show if time runs out -->
             <div id="gameOver">
                 <h1>THANK YOU FOR PLAYING!!</h1>
                 <h4 >Your score is :</h4>
-                <button class="startOver btn rounded bg-primary choices">Start Over</button>
+                <button class="btn rounded bg-primary choices" id="startOver">Start Over</button>
             </div>
             
 

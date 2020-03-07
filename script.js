@@ -31,12 +31,13 @@ var questionArr = [
 // GLobal variables used in the program
 
 var score = 0;
-var time = 1;
-var timer = 10;
+var time = 6;
+var timer = 120;
 var stopInterval;
 var startBtn = document.getElementById("startBtn");
 var questionWrong = document.getElementById("wrongQuestionMessage");
 var yourScore = document.getElementById("yourScore");
+var startOverBtn = document.getElementById("startOver");
 var currentQuestionIndex = 0;
 var correctAnswer = questionArr[currentQuestionIndex].correctAnswer;
 var quizInterval;
@@ -65,7 +66,7 @@ startBtn.addEventListener("click", function () {
 
     populateQuestion();
 })
-
+// This function runs the timer for the quiz questions
 function quizTimer() {
     timer--;
     var minutes = Math.floor(timer / 60);
@@ -101,7 +102,7 @@ function populateQuestion() {
 
 function clickAnswer() {
     
-    
+    questionWrong.textContent = "";
     var isCorrect = false;
     if (questionArr[currentQuestionIndex].correctAnswer === this.answerIndex) {
         isCorrect = true;
@@ -112,11 +113,9 @@ function clickAnswer() {
         nextQuestion();
     }
     else {
-        
         timer -= 15;
         var questionWrongMessage = document.createElement("div");
         questionWrongMessage.textContent = "WRONG ANSWER!!!";
-        questionWrongMessage.textContent = "";
         questionWrong.appendChild(questionWrongMessage);
         nextQuestion();
     }
@@ -143,29 +142,27 @@ function gameover(){
         document.getElementById("finalScore").classList.add("hide");
         document.getElementById("gameOver").classList.remove("hide");
 }
-var startOverBtn = document.querySelector(".startOver");
+
 startOverBtn.addEventListener("click", function (){
-    quizTimer();
+    
+    console.log("clicked")
     populateQuestion();
 })
 
 
 
-document.getElementById("addScore").addEventListener("click", function () {
+document.getElementById("addScore").addEventListener("submit", function () {
 
     var initials = document.getElementById("initials").value;
+    var highScores = localStorage.getItem("highScores");
+    if (highScores != null) {
+        highScores = JSON.parse(highScores);
+    }
+    else {
+        highScores = [];
+    }
 
-       
-
-    // var highScores = localStorage.getItem("highScores");
-    // if (highScores != null) {
-    //     highScores = JSON.parse(highScores);
-    // }
-    // else {
-    //     highScores = [];
-    // }
-
-    // highScores.push(initi);
+    highScores.push(initi);
     var showScore = document.createElement("li");
     showScore.textContent = initials + " " + score;
     var scoreGrid = document.getElementById("scoreGrid")
