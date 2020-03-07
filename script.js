@@ -1,40 +1,50 @@
 
-var startBtn = document.getElementById("startBtn");
+// I used an object array to store all the questions and answers
+
 var questionArr = [
     {
-        question: "What is your name?",
-        choices: ["Steve", "kevin", "peter", "jimmy"],
-        correctAnswer: 0
+        question: "Inside which HTML element do we put the JavaScript?",
+        choices: ["<js>", "<script>", "<scripting>", "<javascript>", "none of the above"],
+        correctAnswer: 1
     },
     {
-        question: "What is your age?",
-        choices: ["10", "20", "25", "40"],
-        correctAnswer: 0
+        question: "Where is the correct place to insert a JavaScript?",
+        choices: ["The <head> section", "Both the <head> and the <body> section are correct", "the <body> section", "I don't know",  "none of the above"],
+        correctAnswer:  1
     },
     {
-        question: "What is your last name?",
-        choices: ["Costa", "Clavin", "whatever", "vaicagar"],
-        correctAnswer: 0
+        question: "What is the correct syntax for referring to an external script called xxx.js?",
+        choices: ["<script name =xxx.js> ", "<script src =xxx.js>", "<script href =xxx.js>", "none of the above"],
+        correctAnswer: 1
     },
     {
-        question: "What is your favorite food?",
-        choices: ["caldo", "strogonoff", "churrasco", "hamburger"],
-        correctAnswer: 0
+        question: "How do you write 'Hello World' in an alert box?",
+        choices: ["alertBox('hello World')", "msgBox('hello World')", "alert('hello World')", "msg('hello World')", "none of the above"],
+        correctAnswer: 2
     },
     {
-        question: "What is your favorite team?",
-        choices: ["mengao", "vasco", "fluminense", "botafogo"],
+        question: "How do you create a function in JavaScript?",
+        choices: ["function myfunction()", "function: myfunction()", "function = myfunction()", "I don't know"],
         correctAnswer: 0
     }];
 
+// GLobal variables used in the program
+
 var score = 0;
 var time = 1;
-var timer = 300;
+var timer = 10;
 var stopInterval;
 var startBtn = document.getElementById("startBtn");
-var nextBtn = document.getElementById("nextBtn");
+var questionWrong = document.getElementById("wrongQuestionMessage");
+var yourScore = document.getElementById("yourScore");
 var currentQuestionIndex = 0;
+var correctAnswer = questionArr[currentQuestionIndex].correctAnswer;
 var quizInterval;
+document.getElementById("gameOver").classList.add("hide");
+
+
+
+// generates the timer for the start countdown and the quiz countdown
 
 startBtn.addEventListener("click", function () {
 
@@ -46,7 +56,8 @@ startBtn.addEventListener("click", function () {
 
             document.getElementById("hide1").classList.add("hide")
             document.getElementById("quizBox").classList.remove("hide");
-            document.getElementById("navigationBox").classList.remove("hide");
+            
+           
 
             quizInterval = setInterval(quizTimer, 1000);
         }
@@ -59,14 +70,23 @@ function quizTimer() {
     timer--;
     var minutes = Math.floor(timer / 60);
     var seconds = timer % 60;
-    document.getElementById("countDown").innerText = minutes + ":" + seconds;
+    var time = document.getElementById("countDown");
+    time.innerText = minutes + ":" + seconds;
+    if (seconds < 10){
+        time.textContent = minutes + ":0" + seconds;
+    }
+    if(timer === 0){
+        gameover();
+    }
 }
+// Adding each question to the corresponding HTML tag, looping through the answers, and 
+// creating a new button for every answer
 
 function populateQuestion() {
 
-    document.getElementById("questions").innerText = "Q" + (currentQuestionIndex + 1) + ": " + questionArr[currentQuestionIndex].question;
-    var buttons = document.getElementById("buttons");
-    buttons.innerHTML = "";
+    document.getElementById("question").textContent = "Q" + (currentQuestionIndex + 1) + ": " + questionArr[currentQuestionIndex].question;
+    var buttons = document.getElementById("buttonsDisplay");
+    buttons.textContent = "";
 
     for (var i = 0; i < questionArr[currentQuestionIndex].choices.length; i++) {
         var button = document.createElement("button");
@@ -77,10 +97,13 @@ function populateQuestion() {
         buttons.appendChild(button);
     }
 }
+// This function validates the answer to check if it is the correct answer.
 
 function clickAnswer() {
+    
+    
     var isCorrect = false;
-    if (questionArr[currentQuestionIndex].correctAnswer == this.answerIndex) {
+    if (questionArr[currentQuestionIndex].correctAnswer === this.answerIndex) {
         isCorrect = true;
     }
 
@@ -89,9 +112,18 @@ function clickAnswer() {
         nextQuestion();
     }
     else {
+        
         timer -= 15;
+        var questionWrongMessage = document.createElement("div");
+        questionWrongMessage.textContent = "WRONG ANSWER!!!";
+        questionWrongMessage.textContent = "";
+        questionWrong.appendChild(questionWrongMessage);
+        nextQuestion();
     }
 }
+
+
+
 
 function nextQuestion() {
     if (currentQuestionIndex < (questionArr.length - 1)) {
@@ -99,33 +131,47 @@ function nextQuestion() {
         populateQuestion();
     }
     else {
-        score += timer;
-        document.getElementById("navigationBox").classList.add("hide");
+        score += timer;       
         document.getElementById("quizBox").classList.add("hide");
         document.getElementById("finalScore").classList.remove("hide");
         clearInterval(quizInterval);
     }
 }
+function gameover(){
+       
+        document.getElementById("quizBox").classList.add("hide");
+        document.getElementById("finalScore").classList.add("hide");
+        document.getElementById("gameOver").classList.remove("hide");
+}
+var startOverBtn = document.querySelector(".startOver");
+startOverBtn.addEventListener("click", function (){
+    quizTimer();
+    populateQuestion();
+})
 
-nextBtn.addEventListener("click", nextQuestion);
+
 
 document.getElementById("addScore").addEventListener("click", function () {
-    var myscore = {
-        initials: document.getElementById("initials").value,
-        score: score
-    };
 
-    var highScores = localStorage.getItem("highScores");
-    if (highScores != null) {
-        highScores = JSON.parse(highScores);
-    }
-    else {
-        highScores = [];
-    }
+    var initials = document.getElementById("initials").value;
 
-    highScores.push(myscore);
-    var showScore = document.createElement("tr");
-    myscore.textContent = showScore;
+       
 
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    // var highScores = localStorage.getItem("highScores");
+    // if (highScores != null) {
+    //     highScores = JSON.parse(highScores);
+    // }
+    // else {
+    //     highScores = [];
+    // }
+
+    // highScores.push(initi);
+    var showScore = document.createElement("li");
+    showScore.textContent = initials + " " + score;
+    var scoreGrid = document.getElementById("scoreGrid")
+    scoreGrid.appendChild(showScore);
+    yourScore.textContent = score;
+    
+
+    localStorage.setItem("highScores", JSON.stringify(showScore));
 });

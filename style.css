@@ -2,16 +2,23 @@
 body {
     background-color: darkgray;
 }
+.container {
+    background-image: url("https://cdn.pixabay.com/photo/2018/09/26/09/07/letters-3704026__340.jpg");
+    
+}
 
 #startBtn {
     padding: 40px;
     width: 300px;
     font-size: 30px;
     margin-left: 170px;
+    font-family: 'Anton', sans-serif;
     
 }
 h1, h3 {
     text-align: center;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
 }
 .container {
     margin-top: 60px;
@@ -26,28 +33,73 @@ h1, h3 {
 }
 #countDown {
     position: fixed;
-    top: 105px;
+    top: 90px;
     right: 300px;
     border: 2px solid black;
     padding: 10px 40px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+    background-color: lavender;
 }
 p {
     margin : 10px 0px 20px 10px;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 26px;
+    font-weight: bolder;
+    font-family: 'Anton', sans-serif;
+    background-color: lavender;
 }
 .choices {
+    width: 500px;
     margin: 10px;
     display: block;
     padding: 10px 100px;
     font-weight: bolder;
+    font-family: 'Anton', sans-serif;
    
 }
-.nextBtn {
-    float: right;
-    
-}
-#nextBtn {
-    padding: 10px 70px;
-}
 
+#wrongQuestionMessage {
+    background-color: red;
+    font-weight: bolder;
+    font-family: 'Anton', sans-serif;
+
+}
+#gameOver{
+    border: 5px groove rgb(41, 40, 40);
+    background-color: lavender;
+    padding: 35px 75px;
+}
+h4 {
+    margin: 30px 0px 50px;
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+}
+#finalScore {
+    border: 5px groove rgb(41, 40, 40);
+    background-color: lavender;
+    padding: 50px 75px 110px;
+
+}
+#initials {
+    width: 290px;
+    font-family: 'Anton', sans-serif;
+}
+.startOver {
+    width: 300px;
+}
+@media screen and (min-width: 500px) and (max-width: 768px) {
+
+    #startBtn {
+        margin-left: 135px;
+    }
+    #countDown {
+        top: 90px;
+        right: 110px;        
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 500px){
+    #countDown {
+        top: 85px;
+        right: 85px;
+    }
+}
