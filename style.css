@@ -130,10 +130,14 @@ h4 {
     background-color: lavender;
     width: 430px;
     }
-    #gameover {
+    #gameOver {
     padding: 0px 0px;
     width: 430px;
     margin-left: -68px;
+    }
+    #startOver {
+        width: 400px;
+        margin-left: 10px;
     }
 }
 @media screen and (min-width: 360px) and (max-width: 500px){
@@ -170,7 +174,7 @@ h4 {
         width: 287px;
         font-size: 12px;
     }
-    #gameover {
+    #gameOver {
         height: 600px;
         margin-top: -67px;
         padding: 66px 0px 0px 0px;
