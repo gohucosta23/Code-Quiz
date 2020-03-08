@@ -32,14 +32,16 @@ var questionArr = [
 
 var score = 0;
 var time = 6;
-var timer = 120;
+var timer = 1;
 var stopInterval;
 var startBtn = document.getElementById("startBtn");
 var questionWrong = document.getElementById("wrongQuestionMessage");
-var yourScore = document.getElementById("yourScore");
 var startOverBtn = document.getElementById("startOver");
+var highScore = [];
+var gameOverScore = document.getElementById("gameOverScore");
+var getScore = document.getElementById("scoreGrid");
 var currentQuestionIndex = 0;
-var correctAnswer = questionArr[currentQuestionIndex].correctAnswer;
+// var correctAnswer = questionArr[currentQuestionIndex].correctAnswer;
 var quizInterval;
 document.getElementById("gameOver").classList.add("hide");
 
@@ -76,7 +78,7 @@ function quizTimer() {
     if (seconds < 10){
         time.textContent = minutes + ":0" + seconds;
     }
-    if(timer === 0){
+    if(timer === 0 || timer < 0){
         gameover();
     }
 }
@@ -137,7 +139,8 @@ function nextQuestion() {
     }
 }
 function gameover(){
-       
+        
+        gameOverScore.innerHTML = score;
         document.getElementById("quizBox").classList.add("hide");
         document.getElementById("finalScore").classList.add("hide");
         document.getElementById("gameOver").classList.remove("hide");
@@ -145,30 +148,39 @@ function gameover(){
 
 startOverBtn.addEventListener("click", function (){
     
-    console.log("clicked")
-    populateQuestion();
+    score = 0;
+    time = 6;
+    timer = 120;
+    currentQuestionIndex = 0;
+
+    document.getElementById("quizBox").classList.remove("hide");
+    document.getElementById("finalScore").classList.add("hide");
+    document.getElementById("gameOver").classList.add("hide");
+
 })
 
 
 
-document.getElementById("addScore").addEventListener("submit", function () {
+document.getElementById("addScore").addEventListener("click", function () {
 
-    var initials = document.getElementById("initials").value;
-    var highScores = localStorage.getItem("highScores");
+    
+    var myscore = {
+        initials: document.getElementById("initials").value,
+        score: score
+    };
+    var highScores = JSON.parse(localStorage.getItem("highScore"));
     if (highScores != null) {
-        highScores = JSON.parse(highScores);
+        highScore = highScores;
     }
-    else {
-        highScores = [];
-    }
-
-    highScores.push(initi);
+    
+    localStorage.setItem("highScore", JSON.stringify(highScore));
+    highScore.push(myscore);
     var showScore = document.createElement("li");
-    showScore.textContent = initials + " " + score;
+    showScore.textContent = "Initials :" + myscore.initials + "  Your score was : " + score + " YOU ROCK!!!";    
     var scoreGrid = document.getElementById("scoreGrid")
     scoreGrid.appendChild(showScore);
     yourScore.textContent = score;
     
 
-    localStorage.setItem("highScores", JSON.stringify(showScore));
+    localStorage.setItem("highScore", JSON.stringify(highScore));
 });
