@@ -31,8 +31,8 @@ var questionArr = [
 // GLobal variables used in the program
 
 var score = 0;
-var time = 1;
-var timer = 1;
+var time = 6;
+var timer = 120;
 var stopInterval;
 var startBtn = document.getElementById("startBtn");
 var questionWrong = document.getElementById("wrongQuestionMessage");
